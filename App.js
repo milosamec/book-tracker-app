@@ -28,6 +28,7 @@ export default class App extends React.Component {
   // In a functional, we cannot setup state on our own
   // Class components allow you to create lifecycle methods like constructor, componentDid, will etc..
   // In functional we don't have access to it but we have Hooks instead in newer versions of React
+  // Expo relies on React Native v0.5.7
 
   showAddNewBook = () => {
     this.setState({ isAddNewBookVisible: true })
@@ -114,7 +115,7 @@ export default class App extends React.Component {
         <View style={{flex: 1}}></View>
         <View style={{height: 70, borderTopWidth: 0.5, borderTopColor: "#E9E9E9", flexDirection: "row"}}>
           
-          <BookCount title="Total" count={this.state.totalCount}/>
+          <BookCount title="Book Title" count={this.state.totalCount}/>
           <BookCount title="Reading" count={this.state.readingCount}/>
           <BookCount title="Read" count={this.state.readCount}/>
         </View>
