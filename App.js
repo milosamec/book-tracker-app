@@ -20,7 +20,11 @@ export default class App extends React.Component {
       readCount: 0,
       isAddNewBookVisible: false,
       textInputData: "",
-      books: []
+      books: [],
+      bookData: {
+        author: '',
+        publisher: ''
+      }
     }
   }
 
@@ -36,12 +40,14 @@ export default class App extends React.Component {
     this.setState((state, props) => ({
       books: [...state.books, book],
       totalCount: state.totalCount + 1,
-      readingCount: state.readingCount + 1
+      readingCount: state.readingCount + 1,
+      bookData: {...state.bookData, author: 'Naim'}
     }), 
     () => {
-      console.log(this.state.books)
+      console.log(this.state)
     })
   }
+
 
 
   render() {
