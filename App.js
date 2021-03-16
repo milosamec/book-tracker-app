@@ -24,6 +24,11 @@ export default class App extends React.Component {
     }
   }
 
+  // We use Class component when we want their class to manage its own state
+  // In a functional, we cannot setup state on our own
+  // Class components allow you to create lifecycle methods like constructor, componentDid, will etc..
+  // In functional we don't have access to it but we have Hooks instead in newer versions of React
+
   showAddNewBook = () => {
     this.setState({ isAddNewBookVisible: true })
   }
