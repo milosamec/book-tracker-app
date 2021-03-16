@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, TextInput, FlatList } from 'react-native';
 import {Ionicons} from '@expo/vector-icons'
 import BookCount from './components/BookCount'
 
@@ -20,11 +20,7 @@ export default class App extends React.Component {
       readCount: 0,
       isAddNewBookVisible: false,
       textInputData: "",
-      books: [],
-      bookData: {
-        author: '',
-        publisher: ''
-      }
+      books: []
     }
   }
 
@@ -47,6 +43,19 @@ export default class App extends React.Component {
       console.log(this.state)
     })
   }
+
+  renderItem = (item, index) => (
+    <View style={{height: 50, flexDirection: "row"}}>
+      <View style={{flex: 1, justifyContent: 'center', paddingLeft: 5}}>
+        <Text>{item}</Text>
+      </View>
+      <TouchableOpacity onPress={() => this.addBook(this.state.textInputData)}>
+        <View style={{width: 100, height: 50, backgroundColor: '#a5deba', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={{fontWeight: 'bold', color: 'white'}}>Mark as Read</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  )
 
 
 
@@ -79,14 +88,15 @@ export default class App extends React.Component {
           </View>
           )}
 
+          <FlatList data={this.state.books} keyExtractor={(item, index) => index.toString()} renderItem={({item}, index) => this.renderItem(item, index)} ListEmptyComponent={<View style={{marginTop: 50, alignItems: "center"}}><Text style={{fontWeight: 'bold'}}>Not Reading Any Books</Text></View>}/>
           <TouchableOpacity onPress={this.showAddNewBook} style={{position: 'absolute', bottom: 20, right: 20}}>
             <View style={{width: 50, height: 50, borderRadius: 25, backgroundColor: "#AAD1E6", alignItems: 'center', justifyContent: 'center'}}>
               <Text style={{color: 'white', fontSize: 30}}>+</Text>
             </View>
           </TouchableOpacity>
+
         </View>
         
-
         <View style={{flex: 1}}></View>
         <View style={{height: 70, borderTopWidth: 0.5, borderTopColor: "#E9E9E9", flexDirection: "row"}}>
           
