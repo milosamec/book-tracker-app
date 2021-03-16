@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, SafeAreaView, View } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, TextInput } from 'react-native';
+import {Ionicons} from '@expo/vector-icons'
 import BookCount from './components/BookCount'
 
 export default class App extends React.Component {
@@ -17,8 +18,18 @@ export default class App extends React.Component {
       totalCount: 0,
       readingCount: 0,
       readCount: 0,
+      isAddNewBookVisible: false
     }
   }
+
+  showAddNewBook = () => {
+    this.setState({ isAddNewBookVisible: true })
+  }
+
+  hideAddNewBook = () => {
+    this.setState({ isAddNewBookVisible: false })
+  }
+
 
   render() {
     return (
@@ -31,10 +42,31 @@ export default class App extends React.Component {
         </View>
 
         <View style={{flex: 1}}>
-          <View style={{width: 50, height: 50, borderRadius: 25, backgroundColor: "#AAD1E6", alignItems: 'center', justifyContent: 'center'}}>
-            <Text style={{color: 'white', fontSize: 30}}>+</Text>
+          {this.state.isAddNewBookVisible && (
+          <View style={{height: 50, flexDirection: "row"}}>
+            <TextInput style={{flex: 1, backgroundColor: '#ececec', paddingLeft: 5}} placeholder="Enter Book Name" placeholderTextColor='grey' />
+
+            <TouchableOpacity>
+              <View style={{width: 50, height: 50, backgroundColor: '#a5deba', alignItems: 'center', justifyContent: 'center'}}>
+                  <Ionicons name="ios-checkmark" color='white' size={40}/>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={this.hideAddNewBook}>
+              <View style={{width: 50, height: 50, backgroundColor: '#deada5', alignItems: 'center', justifyContent: 'center'}}>
+                  <Ionicons name="ios-close" color='white' size={40}/>
+              </View>
+            </TouchableOpacity>
           </View>
+          )}
+
+          <TouchableOpacity onPress={this.showAddNewBook} style={{position: 'absolute', bottom: 20, right: 20}}>
+            <View style={{width: 50, height: 50, borderRadius: 25, backgroundColor: "#AAD1E6", alignItems: 'center', justifyContent: 'center'}}>
+              <Text style={{color: 'white', fontSize: 30}}>+</Text>
+            </View>
+          </TouchableOpacity>
         </View>
+        
 
         <View style={{flex: 1}}></View>
         <View style={{height: 70, borderTopWidth: 0.5, borderTopColor: "#E9E9E9", flexDirection: "row"}}>
