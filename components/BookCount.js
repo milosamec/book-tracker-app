@@ -1,13 +1,13 @@
-import React from 'react';
-import { View, Text } from 'react-native'
+import React, { Component } from 'react'
+import {View, Text} from 'react-native'
 
-export default class BookCtn extends React.Component {
+export default class BookCount extends Component {
     render() {
         return (
             <View style={{flex: 1,  alignItems: 'center', justifyContent: 'center'}}>
-                <Text style={{fontSize: 20}}>Total</Text>
-                <Text>{}</Text>
+                <Text style={{fontSize: 20}}>{this.props.title}</Text>
+                <Text>{this.props.count}</Text>
             </View>
-        );
+        )
     }
 }
