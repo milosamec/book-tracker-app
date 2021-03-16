@@ -18,7 +18,9 @@ export default class App extends React.Component {
       totalCount: 0,
       readingCount: 0,
       readCount: 0,
-      isAddNewBookVisible: false
+      isAddNewBookVisible: false,
+      textInputData: "",
+      books: []
     }
   }
 
@@ -28,6 +30,17 @@ export default class App extends React.Component {
 
   hideAddNewBook = () => {
     this.setState({ isAddNewBookVisible: false })
+  }
+
+  addBook = (book) => {
+    this.setState((state, props) => ({
+      books: [...state.books, book],
+      totalCount: state.totalCount + 1,
+      readingCount: state.readingCount + 1
+    }), 
+    () => {
+      console.log(this.state.books)
+    })
   }
 
 
@@ -44,9 +57,9 @@ export default class App extends React.Component {
         <View style={{flex: 1}}>
           {this.state.isAddNewBookVisible && (
           <View style={{height: 50, flexDirection: "row"}}>
-            <TextInput style={{flex: 1, backgroundColor: '#ececec', paddingLeft: 5}} placeholder="Enter Book Name" placeholderTextColor='grey' />
+            <TextInput onChangeText={(text) => this.setState({textInputData: text})} style={{flex: 1, backgroundColor: '#ececec', paddingLeft: 5}} placeholder="Enter Book Name" placeholderTextColor='grey' />
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => this.addBook(this.state.textInputData)}>
               <View style={{width: 50, height: 50, backgroundColor: '#a5deba', alignItems: 'center', justifyContent: 'center'}}>
                   <Ionicons name="ios-checkmark" color='white' size={40}/>
               </View>
