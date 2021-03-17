@@ -10,14 +10,14 @@ export default class WelcomeScreen extends React.Component {
             <View style={{flex: 1, backgroundColor: colors.bgMain, paddingTop: 150}}>
                 <View style={{flex: 1, alignItems: 'center', alignContent: 'center'}}>
                     <Ionicons name="ios-bookmarks" size={150} color={colors.logoColor} />
-                    <Text style={{fontSize: 50, fontWeight: '100'}}>Book Tracker</Text>
+                    <Text style={{fontSize: 50, fontWeight: '100', color: 'white'}}>Book Tracker</Text>
                 </View>
                 <View style={{flex: 1, alignItems: "center"}}>
-                    <CustomActionButton style={{width: 200, backgroundColor: 'transparent', borderWidth: 0.5, marginBottom: 10}} title="Log in" onPress={() => alert('Login')}>
-                        <Text style={{fontWeight: '100', color: 'white'}}>Log In</Text>
+                    <CustomActionButton style={{width: 200, backgroundColor: 'transparent', borderWidth: 0.5, marginBottom: 10, borderColor: 'white'}} title="Log in" onPress={() => this.props.navigation.navigate('HomeScreen')}>
+                        <Text style={{fontWeight: '200', color: 'white'}}>Log In</Text>
                     </CustomActionButton>
-                    <CustomActionButton style={{width: 200, backgroundColor: 'transparent', borderWidth: 0.5}} title="Log in" onPress={() => alert('Sign Up')}>
-                        <Text style={{fontWeight: '100', color: 'white'}}>Sign Up</Text>
+                    <CustomActionButton style={{width: 200, backgroundColor: 'transparent', borderWidth: 0.5, borderColor: 'white'}} title="Log in" onPress={() => this.props.navigation.navigate('SignUpScreen')}>
+                        <Text style={{fontWeight: '200', color: 'white'}}>Sign Up</Text>
                     </CustomActionButton>
                 </View>
             </View>
