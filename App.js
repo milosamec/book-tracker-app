@@ -3,10 +3,11 @@ import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, TextInput, Flat
 import {createAppContainer, createSwitchNavigator, createStackNavigator, createDrawerNavigator} from 'react-navigation'
 import WelcomeScreen from './screens/AppSwitchNavigator/WelcomeScreen'
 import HomeScreen from './screens/HomeScreen'
-import SignUpScreen from './screens/SignUpScreen'
+import LoginScreen from './screens/LoginScreen'
 import SettingScreen from './screens/SettingScreen'
 import {Ionicons} from '@expo/vector-icons'
 import CustomDrawerComponent from './screens/DrawerNavigator/CustomDrawerComponent';
+import colors from './assets/colors';
 /**
  * 
  App Switch Navigator
@@ -24,8 +25,18 @@ const LoginStackNavigator = createStackNavigator({
       header: null
     }
   },
-  SignUpScreen
-})
+  LoginScreen: { 
+    screen: LoginScreen,
+    navigationOptions: {}
+    }
+  }, {
+    mode: 'modal',
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: colors.bgMain
+      }
+    }
+  })
 
 const AppDrawerNavigator = createDrawerNavigator({
   HomeScreen: {
