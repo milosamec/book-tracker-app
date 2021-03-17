@@ -61,13 +61,13 @@ export default class App extends React.Component {
   }
 
   renderItem = (item, index) => (
-    <View style={{height: 50, flexDirection: "row"}}>
-      <View style={{flex: 1, justifyContent: 'center', paddingLeft: 5}}>
+    <View style={styles.listItemContainer}>
+      <View style={styles.listItemTitleContainer}>
         <Text>{item}</Text>
       </View>
 
-      <CustomActionButton style={{width: 100, backgroundColor: "#a5deba"}} onPress={() => this.markAsRead(item, index)}>
-        <Text style={{fontWeight: 'bold', color: 'white'}}>Mark as Read</Text>
+      <CustomActionButton style={styles.markAsReadButton} onPress={() => this.markAsRead(item, index)}>
+        <Text style={styles.markAsReadButtonText}>Mark as Read</Text>
       </CustomActionButton>
       
     </View>
@@ -79,50 +79,35 @@ export default class App extends React.Component {
     return (
       // View is a container given to us by React
       // It maps directly to the native view
-      <View style={{flex: 1}}>
+      <View style={styles.container}>
         <SafeAreaView />
-        <View style={{height: 70, borderBottomWidth: 0.5, borderBottomColor: "#E9E9E9", alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={{fontSize: 24}}>Book Tracker</Text>
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Book Tracker</Text>
         </View>
 
-        <View style={{flex: 1}}>
+        <View style={styles.container}>
           {this.state.isAddNewBookVisible && (
-          <View style={{height: 50, flexDirection: "row"}}>
-            <TextInput onChangeText={(text) => this.setState({textInputData: text})} style={{flex: 1, backgroundColor: '#ececec', paddingLeft: 5}} placeholder="Enter Book Name" placeholderTextColor='grey' />
-
-            <CustomActionButton onPress={() => this.addBook(this.state.textInputData)} style={{backgroundColor: '#a5deba'}}>
+          <View style={styles.textInputContainer}>
+            <TextInput onChangeText={(text) => this.setState({textInputData: text})} style={styles.textInput} placeholder="Enter Book Name" placeholderTextColor='grey' />
+            <CustomActionButton onPress={() => this.addBook(this.state.textInputData)} style={styles.checkmarkButton}>
               <Ionicons name="ios-checkmark" color='white' size={40}/>
             </CustomActionButton>
-            <CustomActionButton onPress={this.hideAddNewBook} style={{backgroundColor: '#deada5'}}>
+            <CustomActionButton onPress={this.hideAddNewBook}>
               <Ionicons name="ios-close" color='white' size={40}/>
             </CustomActionButton>
-            {/* <CustomActionButton>
-              <Ionicons name="ios-close" color='white' size={40}/>
-            </CustomActionButton> */}
-            {/* <TouchableOpacity onPress={() => this.addBook(this.state.textInputData)}>
-              <View style={{width: 50, height: 50, backgroundColor: '#a5deba', alignItems: 'center', justifyContent: 'center'}}>
-                  <Ionicons name="ios-checkmark" color='white' size={40}/>
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={this.hideAddNewBook}>
-              <View style={{width: 50, height: 50, backgroundColor: '#deada5', alignItems: 'center', justifyContent: 'center'}}>
-                  <Ionicons name="ios-close" color='white' size={40}/>
-              </View>
-            </TouchableOpacity> */}
           </View>
           )}
 
-          <FlatList data={this.state.books} keyExtractor={(item, index) => index.toString()} renderItem={({item}, index) => this.renderItem(item, index)} ListEmptyComponent={<View style={{marginTop: 50, alignItems: "center"}}><Text style={{fontWeight: 'bold'}}>Not Reading Any Books</Text></View>}/>
+          <FlatList data={this.state.books} keyExtractor={(item, index) => index.toString()} renderItem={({item}, index) => this.renderItem(item, index)} ListEmptyComponent={<View style={styles.listEmptyComponent}><Text style={styles.listEmptyComponentText}>Not Reading Any Books</Text></View>}/>
           
-          <CustomActionButton position={"right"} onPress={this.showAddNewBook} style={{backgroundColor: "#AAD1E6", borderRadius: 25}}>
-            <Text style={{color: 'white', fontSize: 30}}>+</Text>
+          <CustomActionButton position={"right"} onPress={this.showAddNewBook} style={styles.addNewBookButton}>
+            <Text style={styles.addNewBookButtonText}>+</Text>
           </CustomActionButton>
 
         </View>
         
-        <View style={{flex: 1}} />
-        <View style={{height: 70, borderTopWidth: 0.5, borderTopColor: "#E9E9E9", flexDirection: "row"}}>
+        <View style={styles.container} />
+        <View style={styles.footer}>
           
           <BookCount title="Book Title" count={this.state.totalCount}/>
           <BookCount title="Reading" count={this.state.readingCount}/>
@@ -134,3 +119,71 @@ export default class App extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  header: {
+    height: 70, 
+    borderBottomWidth: 0.5, 
+    borderBottomColor: "#E9E9E9", 
+    alignItems: 'center', 
+    justifyContent: 'center'
+  },
+  headerTitle: {
+    fontSize: 24
+  },
+  listItemContainer: {
+    height: 50,
+    flexDirection: 'row'
+  },
+  listItemTitleContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingLeft: 5
+  },
+  markAsReadButtonText: {
+    fontWeight: 'bold', 
+    color: 'white'
+  },
+  markAsReadButton: {
+    width: 100, 
+    backgroundColor: "#a5deba",
+  },
+  addNewBookButton: {
+    backgroundColor: "#AAD1E6", 
+    borderRadius: 25
+  },
+  addNewBookButtonText: {
+    color: 'white', 
+    fontSize: 30
+  },
+  checkmarkButton: {
+    backgroundColor: '#a5deba'
+  },
+  textInputContainer: {
+    backgroundColor: '#ececec', 
+    paddingLeft: 5,
+    flexDirection: "row"
+  },
+  textInput: {
+    flex: 1,
+    backgroundColor: "#ececec",
+    paddingLeft: 5
+  },
+  listEmptyComponent: {
+    marginTop: 50, 
+    alignItems: "center"
+  },
+  listEmptyComponentText: {
+    fontWeight: 'bold'
+  },
+  footer: {
+    height: 70, 
+    borderTopWidth: 0.5, 
+    borderTopColor: "#E9E9E9", 
+    flexDirection: "row"
+  },
+
+})
