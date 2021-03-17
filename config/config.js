@@ -5,5 +5,6 @@ export const firebaseConfig = {
     storageBucket: "book-tracker-82a8e.appspot.com",
     messagingSenderId: "930243975349",
     appId: "1:930243975349:web:3dabc5e2c5eaa1c01186fc",
-    measurementId: "G-JVW6MXMPVY"
+    measurementId: "G-JVW6MXMPVY",
+    databaseURL: "https://book-tracker-82a8e-default-rtdb.firebaseio.com/"
   };
