@@ -2,7 +2,37 @@ import React, { Component } from 'react'
 import {View, Text, StyleSheet, TextInput} from 'react-native'
 import colors from '../assets/colors'
 import CustomActionButton from '../components/CustomActionButton'
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
+
 export default class LoginScreen extends Component {
+    constructor() {
+        super()
+        this.state = {
+            email: '',
+            password: '',
+            isLoading: false
+        }
+    }
+
+    onSignIn = () => {
+
+    }
+    
+    onSignUp = async () => {
+        if(this.state.email && this.state.password) {
+            try {
+                const response = await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+            } catch (err) {
+                if(err.code == 'auth/email-already-in-use') {
+                    alert('User already exists. Try logging in')
+                } else {
+                    alert('Please enter email and password')
+                }
+            }
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -10,14 +40,14 @@ export default class LoginScreen extends Component {
                     <Text style={styles.signInText}>Sign In</Text>
                 </View>
                 <View style={{flex: 1, justifyContent: "center"}}>
-                    <TextInput style={styles.textInput} placeholder="abc@example.com" placeholderTextColor={colors.bgTextInputDark} keyboardType="email-address"></TextInput>
-                    <TextInput style={styles.textInput} placeholder="enter password" placeholderTextColor={colors.bgTextInputDark} secureTextEntry></TextInput>
+                    <TextInput style={styles.textInput} placeholder="abc@example.com" placeholderTextColor={colors.bgTextInputDark} keyboardType="email-address" onChangeText={email => this.setState({email})}></TextInput>
+                    <TextInput style={styles.textInput} placeholder="enter password" placeholderTextColor={colors.bgTextInputDark} secureTextEntry onChangeText={password => this.setState({password})}></TextInput>
                 </View>
                 <View style={{alignItems: 'center'}}>
-                    <CustomActionButton style={[styles.loginButtons, {borderColor: colors.bgPrimary}]}>
+                    <CustomActionButton onPress={this.onSignIn} style={[styles.loginButtons, {borderColor: colors.bgPrimary}]}>
                         <Text style={{color: 'white'}}>Log In</Text>
                     </CustomActionButton>
-                    <CustomActionButton style={[styles.loginButtons, {borderColor: colors.bgError}]}>
+                    <CustomActionButton onPress={this.onSignUp} style={[styles.loginButtons, {borderColor: colors.bgError}]}>
                         <Text style={{color: 'white'}}>Sign Up</Text>
                     </CustomActionButton>
                 </View>

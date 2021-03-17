@@ -8,6 +8,9 @@ import SettingScreen from './screens/SettingScreen'
 import {Ionicons} from '@expo/vector-icons'
 import CustomDrawerComponent from './screens/DrawerNavigator/CustomDrawerComponent';
 import colors from './assets/colors';
+import * as firebase from 'firebase/app'
+import { firebaseConfig } from './config/config'
+
 /**
  * 
  App Switch Navigator
@@ -16,7 +19,24 @@ import colors from './assets/colors';
 - Home Screen
  */
 
-const App = () => <AppContainer />
+class App extends React.Component {
+  constructor() {
+    super()
+    this.initializeFirebase()
+  }
+
+
+  initializeFirebase = () => {
+    firebase.initializeApp(firebaseConfig)
+  }
+
+
+  render() {
+    return (
+      <AppContainer />
+    )
+  }
+}
 
 const LoginStackNavigator = createStackNavigator({
   WelcomeScreen: {
