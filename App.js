@@ -3,6 +3,8 @@ import { StyleSheet, Text, SafeAreaView, View, TouchableOpacity, TextInput, Flat
 import {Ionicons} from '@expo/vector-icons'
 import BookCount from './components/BookCount'
 import CustomActionButton from './components/CustomActionButton'
+import colors from './assets/colors'
+
 
 export default class App extends React.Component {
   // Add state in contrusctor method in the class
@@ -127,7 +129,7 @@ const styles = StyleSheet.create({
   header: {
     height: 70, 
     borderBottomWidth: 0.5, 
-    borderBottomColor: "#E9E9E9", 
+    borderBottomColor: colors.borderColor, 
     alignItems: 'center', 
     justifyContent: 'center'
   },
@@ -149,10 +151,10 @@ const styles = StyleSheet.create({
   },
   markAsReadButton: {
     width: 100, 
-    backgroundColor: "#a5deba",
+    backgroundColor: colors.bgSuccess,
   },
   addNewBookButton: {
-    backgroundColor: "#AAD1E6", 
+    backgroundColor: colors.bgPrimary, 
     borderRadius: 25
   },
   addNewBookButtonText: {
@@ -160,16 +162,16 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   checkmarkButton: {
-    backgroundColor: '#a5deba'
+    backgroundColor: colors.bgSuccess
   },
   textInputContainer: {
-    backgroundColor: '#ececec', 
+    backgroundColor: colors.borderColor, 
     paddingLeft: 5,
     flexDirection: "row"
   },
   textInput: {
     flex: 1,
-    backgroundColor: "#ececec",
+    backgroundColor: colors.bgTextInput,
     paddingLeft: 5
   },
   listEmptyComponent: {
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
   footer: {
     height: 70, 
     borderTopWidth: 0.5, 
-    borderTopColor: "#E9E9E9", 
+    borderTopColor: colors.borderColor, 
     flexDirection: "row"
   },
 
