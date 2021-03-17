@@ -76,7 +76,6 @@ export default class App extends React.Component {
   )
 
 
-
   render() {
     return (
       // View is a container given to us by React
