@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {View, Text, StyleSheet, TextInput} from 'react-native'
+import {View, Text, StyleSheet, TextInput, ActivityIndicator} from 'react-native'
 import colors from '../assets/colors'
 import CustomActionButton from '../components/CustomActionButton'
 import * as firebase from 'firebase/app'
@@ -15,15 +15,46 @@ export default class LoginScreen extends Component {
         }
     }
 
-    onSignIn = () => {
+    onSignIn = async () => {
+        if(this.state.email && this.state.password) {
+            this.setState({isLoading: true})
+            try {
+                const response = await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
 
+                if(response) {
+                    this.setState({isLoading: false})
+                    // navigate the user
+                    this.props.navigation.navigate('LoadingScreen')
+                }
+
+            } catch (err) {
+                this.setState({isLoading: false})
+                switch(err.code) {
+                    case 'auth/user-not-found':
+                        alert('A user with that email does not exist. Try signing Up')
+                        break;
+                    case 'auth/invalid-email':
+                        alert('Please enter an email address')
+                }
+            }
+        } else {
+            alert('Please enter email and password')
+        }
     }
     
     onSignUp = async () => {
         if(this.state.email && this.state.password) {
+            this.setState({isLoading: true})
             try {
                 const response = await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+                if (response) {
+                    this.setState({isLoading:false})
+                    this.onSignIn(this.state.email, this.state.password)
+                }
+
+
             } catch (err) {
+                if(this.setState({isLoading: false}))
                 if(err.code == 'auth/email-already-in-use') {
                     alert('User already exists. Try logging in')
                 } else {
@@ -36,6 +67,9 @@ export default class LoginScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
+            {this.state.isLoading ? <View style={[StyleSheet.absoluteFill,  {alignItems: 'center', justifyContent: 'center', zIndex: 1000, elevation: 1000}]}>
+                <ActivityIndicator size="large" color={colors.logoColor}/>
+            </View> : null}
                 <View style={{alignItems: "center",}}>
                     <Text style={styles.signInText}>Sign In</Text>
                 </View>
